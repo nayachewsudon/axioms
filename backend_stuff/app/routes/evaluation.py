@@ -15,7 +15,10 @@ class EvaluateRequest(BaseModel):
     normalised_storage_paths: list[str]
 
 def fix_path(path_str: str) -> Path:
+    import re
+    print(f"DEBUG fix_path input: {path_str}")
     path_str = re.sub(r'^.*?/storage/', '/app/app/storage/', path_str)
+    print(f"DEBUG fix_path output: {path_str}")
     return Path(path_str)
 
 @router.post("")
