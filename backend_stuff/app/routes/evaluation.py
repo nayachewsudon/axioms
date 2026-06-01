@@ -83,3 +83,14 @@ def evaluate(request: EvaluateRequest, export_pdf: bool = False):
         "rankings": rankings,
         "recommendation": recommendation
     }
+
+@router.get("/debug")
+def debug(path: str):
+    fixed = fix_path(path)
+    return {
+        "original_path": path,
+        "fixed_path": str(fixed),
+        "exists": fixed.exists(),
+        "app_storage_contents": list(Path("/app/storage").rglob("*")) if Path("/app/storage").exists() else "/app/storage does not exist",
+        "app_app_storage_contents": list(Path("/app/app/storage").rglob("*")) if Path("/app/app/storage").exists() else "/app/app/storage does not exist",
+    }
