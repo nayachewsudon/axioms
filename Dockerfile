@@ -17,7 +17,10 @@ WORKDIR /app
 COPY backend_stuff/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY backend_stuff/app/ ./
+COPY backend_stuff/app/ ./app/
+
+RUN mkdir -p /app/storage/uploads /app/storage/normalised /app/storage/requirements \
+    && ln -s /app/storage /app/app/storage
 
 EXPOSE 8000
 
