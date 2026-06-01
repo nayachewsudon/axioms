@@ -14,8 +14,7 @@ class EvaluateRequest(BaseModel):
     normalised_storage_paths: list[str]
 
 def fix_path(path_str: str) -> Path:
-    if path_str.startswith("/app/app/"):
-        path_str = path_str.replace("/app/app/", "/app/", 1)
+    path_str = re.sub(r'^.*?/storage/', '/app/app/storage/', path_str)
     return Path(path_str)
 
 @router.post("")
